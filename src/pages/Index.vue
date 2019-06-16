@@ -38,7 +38,7 @@
       // 判断当前页面页码 注意是 $route
       this.page = parseInt(this.$route.query.page)
       blog.getIndexBlogs({ page: this.page }).then(res => {
-        console.log(res);
+        //console.log(res);
         this.blogs = res.data
         this.total = res.total
         this.page = res.page
