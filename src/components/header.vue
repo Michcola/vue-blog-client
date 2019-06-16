@@ -106,10 +106,13 @@ header.login {
     h1 {
         margin: 0;
         padding: 0;
-        color: #fff;
         font-size: 40px;
         text-transform: uppercase;
         flex: 1;
+
+        a{
+          color: #fff;
+        }
     }
 
     .edit {
@@ -156,6 +159,19 @@ header.login {
 
   }
 }
+  @media (max-width: 768px) {
+    header.no-login {
+      h1{
+        margin: 40px 0 0 0;
+      }
+      .btns {
+        max-width: 300px;
+      }
+      button {
+        margin: 20px 30px 0;
+      }
+    }
+  }
 
     
 </style>
