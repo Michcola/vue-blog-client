@@ -1,26 +1,46 @@
 <template>
   <div id="detail">
-   <section class="user-info">
-     <img class="avatar" src="http://cn.gravatar.com/avatar/1?s=128&d=identicon" alt="">
-     <h3>前端一部大揭秘</h3>
-     <p> <router-link to="/user">嘻嘻</router-link> 发布与 3天钱</p>
-   </section>
-   <section class="article">
-     <h1>大前端</h1>
-     <p>hehe </p>
-     <h2>xx</h2>
-   </section>
+    <section class="user-info">
+      <img :src="user.avatar" :alt="user.username" :title="user.username" class="avatar">
+      <h3>{{title}}</h3>
+      <p><router-link :to="`/user/${user.id}`">{{user.username}}</router-link> {{friendlyDate(createdAt)}}</p>
+    </section>
+    <!-- 用 v-html 转换 html 为 markdown -->
+    <section class="article" v-html="markdown"></section>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  import marked from 'marked'
+  import blog from '@/api/blog'
+
+  export default {
+    data() {
+      return {
+        title: '',
+        rawContent: '',
+        user: {},
+        createdAt: ''
+      }
+    },
+
+    created() {
+      // params：参数数组
+      this.blogId = this.$route.params.blogId
+      blog.getDetail({ blogId: this.blogId }).then(res =>{
+        this.title = res.data.title
+        this.rawContent = res.data.content
+        this.user = res.data.user
+        this.createdAt = res.data.createdAt
+      })
+    },
+    // computed 计算属性
+    computed: {
+      markdown() {
+        return marked(this.rawContent)
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
