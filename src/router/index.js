@@ -11,6 +11,7 @@ import Login from '@/pages/Login/template.vue'
 import Register from '@/pages/Register/template.vue'
 import Edit from '@/pages/Edit/template.vue'*/
 import store from '../store'
+window.store = store
 
 Vue.use(Router)
 
